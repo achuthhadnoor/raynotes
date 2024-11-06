@@ -1,0 +1,110 @@
+{
+  "private": true,
+  "main": "main/index.js",
+  "version": "0.0.1",
+  "name": "faceapp",
+  "productName": "Faceapp",
+  "scripts": {
+    "clean": "rimraf dist main renderer/out renderer/.next",
+    "dev": "npm run build-electron && electron .",
+    "build-renderer": "next build renderer",
+    "build-electron": "tsc -p electron-src",
+    "build": "npm run build-renderer && npm run build-electron",
+    "pack-app": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder",
+    "type-check": "tsc -p ./renderer/tsconfig.json && tsc -p ./electron-src/tsconfig.json"
+  },
+  "dependencies": {
+    "electron-is-dev": "^1.2.0",
+    "electron-next": "^3.1.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.18.63",
+    "@types/react": "^16.14.52",
+    "@types/react-dom": "^16.9.24",
+    "autoprefixer": "^10.4.20",
+    "electron": "^27.1.2",
+    "electron-builder": "^24.9.1",
+    "next": "latest",
+    "postcss": "^8.4.47",
+    "rimraf": "^3.0.2",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^4.9.5"
+  },
+  "build": {
+    "appId": "com.achuth.faceapp",
+    "productName": "Faceapp",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main",
+      "assets",
+      "build",
+      "renderer/out"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "minimumSystemVersion": "10.12.0",
+      "target": {
+        "target": "default",
+        "arch": [
+          "universal",
+          "x64",
+          "arm64"
+        ]
+      },
+      "hardenedRuntime": true,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "gatekeeperAssess": false,
+      "type": "distribution"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "icon": "build/icons/lapse.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm",
+        "tar.gz"
+      ]
+    },
+    "dmg": {
+      "artifactName": "${productName}-${version}-${arch}.${ext}",
+      "iconSize": 160,
+      "contents": [
+        {
+          "x": 120,
+          "y": 230
+        },
+        {
+          "x": 390,
+          "y": 230,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
+      "window": {
+        "x": 200,
+        "y": 200,
+        "height": 450,
+        "width": 544
+      }
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    }
+  }
+}
