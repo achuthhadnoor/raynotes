@@ -6,57 +6,58 @@ import electronIsDev from "electron-is-dev";
 import windowManager from "./windowManager";
 
 let window: BrowserWindow | null = null,
-    isOpen = false;
+  isOpen = false;
 
 const createBrowserWindow = () => {
-    close();
-    window = new BrowserWindow({
-        height: 570,
-        width: 400,
-        fullscreen: false,
-        resizable: false,
-        frame: false,
-        transparent: platform() === "darwin" ? true : false,
-        vibrancy: "sidebar",
-        titleBarStyle: "customButtonsOnHover",
-        trafficLightPosition: { x: 16, y: 16 },
-        webPreferences: {
-            nodeIntegration: true,
-            allowRunningInsecureContent: true,
-            preload: join(__dirname, "../preload.js"),
-        },
-    });
+  close();
+  window = new BrowserWindow({
+    height: 570,
+    width: 400,
+    fullscreen: false,
+    resizable: false,
+    frame: false,
+    transparent: platform() === "darwin" ? true : false,
+    vibrancy: "sidebar",
+    titleBarStyle: "customButtonsOnHover",
+    trafficLightPosition: { x: 16, y: 16 },
+    show: true,
+    webPreferences: {
+      nodeIntegration: true,
+      allowRunningInsecureContent: true,
+      preload: join(__dirname, "../preload.js"),
+    },
+  });
 
-    const url = electronIsDev
-        ? "http://localhost:8000/"
-        : format({
-            pathname: join(__dirname, "../../renderer/out/index.html"),
-            protocol: "file:",
-            slashes: true,
-        });
+  const url = electronIsDev
+    ? "http://localhost:8000/"
+    : format({
+        pathname: join(__dirname, "../../renderer/out/index.html"),
+        protocol: "file:",
+        slashes: true,
+      });
 
-    window.loadURL(url);
-    electronIsDev && window.webContents.openDevTools({ mode: "detach" });
-    isOpen = true;
+  window.loadURL(url);
+  electronIsDev && window.webContents.openDevTools({ mode: "detach" });
+  isOpen = true;
 };
 
 const close = () => {
-    window?.close();
+  window?.close();
 };
 
 const windowOpenCheck = () => isOpen;
 
 const verifyLicense = (license: string) => {
-    window?.webContents.send("verify-license", license);
+  window?.webContents.send("verify-license", license);
 };
 
 ipcMain.handle("get-hostname", (_e, _args) => {
-    return hostname();
+  return hostname();
 });
 
 export default windowManager.setLicenseWindow({
-    openLicenseWindow: createBrowserWindow,
-    closeLicenseWindow: close,
-    isOpen: windowOpenCheck,
-    verifyLicense
+  openLicenseWindow: createBrowserWindow,
+  closeLicenseWindow: close,
+  isOpen: windowOpenCheck,
+  verifyLicense,
 });

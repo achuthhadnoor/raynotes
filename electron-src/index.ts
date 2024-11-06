@@ -1,7 +1,7 @@
 // Packages
 import { app } from "electron";
 import prepareNext from "electron-next";
-import './windows/load';
+import "./windows/load";
 import windowManager from "./windows/windowManager";
 
 // Prepare the renderer once the app is ready
