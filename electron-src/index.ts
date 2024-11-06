@@ -7,7 +7,7 @@ import windowManager from "./windows/windowManager";
 // Prepare the renderer once the app is ready
 app.on("ready", async () => {
   await prepareNext("./renderer");
-  windowManager.notesWindow?.openAllNotesWindow();
+  windowManager.licenseWindow?.openLicenseWindow();
 });
 
 // Quit the app once all windows are closed
