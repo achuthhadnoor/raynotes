@@ -18,6 +18,7 @@ const createBrowserWindow = () => {
     frame: false,
     transparent: platform() === "darwin" ? true : false,
     vibrancy: "sidebar",
+    visualEffectState: "active",
     titleBarStyle: "customButtonsOnHover",
     trafficLightPosition: { x: 16, y: 16 },
     webPreferences: {

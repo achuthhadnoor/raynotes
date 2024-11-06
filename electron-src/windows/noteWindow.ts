@@ -16,8 +16,9 @@ const createBrowserWindow = (id: string) => {
     fullscreen: false,
     resizable: false,
     frame: false,
-    transparent: platform() === "darwin" ? true : false,
     vibrancy: "sidebar",
+    visualEffectState: "active",
+    transparent: platform() === "darwin" ? true : false,
     titleBarStyle: "customButtonsOnHover",
     trafficLightPosition: { x: 16, y: 16 },
     webPreferences: {
@@ -28,7 +29,7 @@ const createBrowserWindow = (id: string) => {
   });
 
   const url = electronIsDev
-    ? `http://localhost:8000/note?id=${id}`
+    ? `http://localhost:8000/note/${id}`
     : format({
         pathname: join(__dirname, "../../renderer/out/note.html"),
         protocol: "file:",
