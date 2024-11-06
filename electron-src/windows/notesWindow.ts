@@ -1,9 +1,9 @@
 import { BrowserWindow, ipcMain } from "electron";
 import { join } from "path";
 import { format } from "url";
-import { hostname, platform } from "os";
 import electronIsDev from "electron-is-dev";
 import windowManager from "./windowManager";
+import { platform } from "os";
 
 let window: BrowserWindow | null = null,
   isOpen = false;
@@ -80,10 +80,6 @@ ipcMain.handle("update-settings", (_e, _args) => {
 
 ipcMain.handle("delete-all-notes", (_e, _args) => {
   deleteAllNotes();
-});
-
-ipcMain.handle("get-hostname", (_e, _args) => {
-  return hostname();
 });
 
 ipcMain.handle("get-settings", (_e, _args) => {
