@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import cl from "classnames";
 import { codes } from "../constants";
+import Layout from "../components/Layout";
 
 declare global {
   interface Window {
     electron: {
       ipcRenderer: any;
+      sayHello: () => void;
+      receiveHello: (handler: (event: any, args: any) => void) => void;
+      stopReceivingHello: (handler: (event: any, args: any) => void) => void;
     };
   }
 }
@@ -156,7 +160,7 @@ const IndexPage = () => {
 
   return (
     <>
-      <div className="fixed flex gap-2 top-4 left-[15px] opacity-[0.3] transition ease-in-out text-neutral-700 dark:text-neutral-300">
+      <div className="relative flex gap-2 top-3 pl-[14px] opacity-[0.3] transition ease-in-out text-neutral-700 dark:text-neutral-300 w-auto">
         <svg
           width="56"
           height="16"
@@ -168,11 +172,10 @@ const IndexPage = () => {
           <circle cx="48" cy="8" r="5.5" stroke="currentColor"></circle>
         </svg>
       </div>
-
       {!isWindows && permissions ? (
         // Render UI for granted permissions
         <form
-          className="fixed flex flex-col gap-2 px-6 py-1 dragable inset-0 justify-center my-4"
+          className="fixed flex flex-col gap-2 px-6 py-1  inset-0 justify-center my-4 select-none"
           onSubmit={grantedPermissions}
         >
           <div className="flex flex-col flex-1 items-center h-full justify-center gap-4">
@@ -196,7 +199,7 @@ const IndexPage = () => {
           </div>
           <button
             type="submit"
-            className="flex justify-center align-center items-center p-2 dark:bg-green-500 rounded text-green-900 font-semibold bg-green-400 no-drag "
+            className="flex justify-center align-center items-center p-2 dark:bg-green-600 rounded text-green-600 font-semibold bg-green-600 no-drag "
           >
             Launch the app
           </button>
@@ -204,16 +207,18 @@ const IndexPage = () => {
       ) : (
         // Render UI for license activation
         <form
-          className="fixed flex flex-col justify-between px-6 py-1 dragable inset-0 "
+          className="fixed flex flex-col justify-between px-6 py-1 select-none inset-0"
           onSubmit={validateActivation}
         >
           {/* Content for license activation */}
-          <div className="flex flex-1 flex-col pt-6 ">
+          <div className="flex flex-1 flex-col pt-16 ">
             {/* <Logo /> */}
-            <div className="flex flex-col items-center justify-center">Logo</div>
-            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-              Welcome to lapse!
-            </h3>
+            <div className="flex flex-col justify-center text-4xl my-2 text-green-600 ">
+              ₶
+            </div>
+            <h1 className="text-3xl font-semibold text-neutral-900 dark:text-neutral-100 mt-2">
+              Welcome to <span className="text-green-600">Raynotes</span>!
+            </h1>
             <div className="text-sm  text-neutral-600 dark:text-neutral-400 py-2">
               Enter your license below to activate:
             </div>
@@ -222,7 +227,38 @@ const IndexPage = () => {
                 licenseErr
                   ? "border-red-500"
                   : "dark:border-neutral-600 border-neutral-300",
-                "my-2 px-[10px] py-[15px] rounded-md no-drag border-2 outline-none accent-green-500 w-full   bg-transparent text-neutral-900 dark:text-neutral-200"
+                "my-2 px-[10px] py-[15px] rounded-md no-drag border-2 outline-none accent-green-600 w-full   bg-transparent text-neutral-900 dark:text-neutral-200"
+              )}
+              placeholder="join@raynotes.app"
+              id="license_input"
+              value={licenseKey}
+              onChange={(e: any) => {
+                // const inputValue = e.target.value;
+                setLicenseKey(e.target.value);
+
+                // if (
+                //   inputValue.split("-").length === 4 &&
+                //   inputValue.length === 18
+                // ) {
+                //   setLicenseKey(e.target.value);
+                // } else {
+                //   const sanitizedValue = inputValue.replace(
+                //     /[^A-Za-z0-9]/g,
+                //     ""
+                //   );
+                //   const formattedValue = sanitizedValue
+                //     .replace(/(.{4})/g, "$1-")
+                //     .slice(0, 19);
+                //   setLicenseKey(formattedValue);
+                // }
+              }}
+            />
+            <input
+              className={cl(
+                licenseErr
+                  ? "border-red-500"
+                  : "dark:border-neutral-600 border-neutral-300",
+                "my-2 px-[10px] py-[15px] rounded-md no-drag border-2 outline-none accent-green-600 w-full   bg-transparent text-neutral-900 dark:text-neutral-200"
               )}
               placeholder="XXXX-XXXX-XXXX-XXXX..."
               id="license_input"
@@ -254,7 +290,7 @@ const IndexPage = () => {
                   type="checkbox"
                   id="license_agree"
                   checked={agree}
-                  className="accent-green-500"
+                  className="accent-green-600"
                   onChange={() => {
                     setAgree(!agree);
                   }}
@@ -273,12 +309,12 @@ const IndexPage = () => {
                   </u>
                 </span>
               </label>
-              <label className="hidden flex align-middle items-center gap-1  text-sm ">
+              <label className="flex align-middle items-center gap-1  text-sm ">
                 <input
                   type="checkbox"
                   id="license_data"
                   checked={data}
-                  className="accent-green-500"
+                  className="accent-green-600"
                   onChange={() => {
                     setData(!data);
                   }}
@@ -303,7 +339,7 @@ const IndexPage = () => {
               {/* <button className="p-2 ring-1 ring-neutral-600 rounded text-neutral-500 dark:text-neutral-200">
               Start 7-day-trail
             </button> */}
-              <button className="flex justify-center align-center items-center p-2 dark:bg-green-500 rounded text-green-900 font-semibold bg-green-400 no-drag ">
+              <button className="flex justify-center align-center items-center p-2 dark:bg-green-600 rounded  font-semibold bg-green-600 no-drag ">
                 {loading && (
                   <svg
                     className="animate-spin -ml-1 mr-3 h-5 w-5 text-neutral-600"
