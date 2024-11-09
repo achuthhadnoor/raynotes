@@ -309,7 +309,7 @@ const IndexPage = () => {
                   </u>
                 </span>
               </label>
-              <label className="flex align-middle items-center gap-1  text-sm ">
+              {/* <label className="flex align-middle items-center gap-1  text-sm ">
                 <input
                   type="checkbox"
                   id="license_data"
@@ -323,7 +323,7 @@ const IndexPage = () => {
                   Share anonymous usage data to help improve the app ( optional
                   )
                 </span>
-              </label>
+              </label> */}
             </div>
             <div className="flex flex-row flex-wrap flex-1 gap-2 p-2">
               {errors.map((error) => (
