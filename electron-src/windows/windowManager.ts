@@ -10,10 +10,10 @@ interface ISettingsWindowManager {
   closeSettingsWindow: () => void;
 }
 interface INoteWindowManager {
-  openNoteWindow: (id: string) => void;
+  openNoteWindow: (id: string | number) => void;
   closeNoteWindow: () => void;
   saveNote: (note: string) => void;
-  deleteNote: (id: string) => void;
+  deleteNote: (id: string | number) => void;
   isOpen: () => boolean;
 }
 interface IAllNotesWindowManager {
@@ -22,7 +22,7 @@ interface IAllNotesWindowManager {
   getNotes: () => void;
   updateSettings: () => void;
   deleteAllNotes: () => void;
-  deleteNote: (id: string) => void;
+  deleteNote: (id: string | number) => void;
   isOpen: () => boolean;
   getSettings: () => void;
 }

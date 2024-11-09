@@ -4,6 +4,7 @@ import { User } from "../../interfaces";
 import { findAll, findData } from "../../utils/sample-api";
 import ListDetail from "../../components/ListDetail";
 import { GetStaticPaths, GetStaticProps } from "next";
+import Editor from "../../components/Editor";
 
 type Params = {
   id?: string;
@@ -29,14 +30,16 @@ const InitialPropsDetail = ({ item, errors }: Props) => {
     <Layout
       title={`${item ? item.name : "Detail"} | Next.js + TypeScript Example`}
     >
-      {item && <ListDetail item={item} />}
+      {/* {item && <ListDetail item={item} />}
+       */}
+      <Editor />
     </Layout>
   );
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const items: User[] = await findAll();
-  const paths = items.map((item) => `/detail/${item.id}`);
+  const paths = items.map((item) => `/note/${item.id}`);
   return { paths, fallback: false };
 };
 

@@ -32,10 +32,10 @@ const createBrowserWindow = () => {
   const url = electronIsDev
     ? `http://localhost:8000/notes`
     : format({
-        pathname: join(__dirname, "../../renderer/out/notes.html"),
-        protocol: "file:",
-        slashes: true,
-      });
+      pathname: join(__dirname, "../../renderer/out/notes.html"),
+      protocol: "file:",
+      slashes: true,
+    });
 
   window.loadURL(url);
   electronIsDev && window.webContents.openDevTools({ mode: "detach" });
@@ -46,7 +46,7 @@ const close = () => {
   window?.close();
 };
 
-const deleteNote = (id: string) => {
+const deleteNote = (id: string | number) => {
   window?.webContents.send("delete-all-note", { id });
 };
 

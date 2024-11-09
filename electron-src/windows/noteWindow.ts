@@ -8,7 +8,7 @@ import { platform } from "os";
 let window: BrowserWindow | null = null,
   isOpen = false;
 
-const createBrowserWindow = (id: string) => {
+const createBrowserWindow = (id: string | number) => {
   close();
   window = new BrowserWindow({
     height: 570,
@@ -32,13 +32,14 @@ const createBrowserWindow = (id: string) => {
   const url = electronIsDev
     ? `http://localhost:8000/note/${id}`
     : format({
-        pathname: join(__dirname, "../../renderer/out/note.html"),
-        protocol: "file:",
-        slashes: true,
-      });
+      pathname: join(__dirname, "../../renderer/out/note.html"),
+      protocol: "file:",
+      slashes: true,
+    });
 
   window.loadURL(url);
   electronIsDev && window.webContents.openDevTools({ mode: "detach" });
+  // window.setContentProtection(true);
   isOpen = true;
 };
 
@@ -52,7 +53,7 @@ const saveNote = (note: string) => {
   window?.webContents.send("save-note", note);
 };
 
-const deleteNote = (id: string) => {
+const deleteNote = (id: string | number) => {
   window?.webContents.send("delete-note", id);
 };
 
