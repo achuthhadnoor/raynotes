@@ -22,6 +22,9 @@ const createBrowserWindow = (id: string | number) => {
     visualEffectState: "active",
     titleBarStyle: "customButtonsOnHover",
     trafficLightPosition: { x: 14, y: 12 },
+    minimizable: false,
+    show: false,
+    maxHeight: 800,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: true,
@@ -32,10 +35,10 @@ const createBrowserWindow = (id: string | number) => {
   const url = electronIsDev
     ? `http://localhost:8000/note/${id}`
     : format({
-      pathname: join(__dirname, "../../renderer/out/note.html"),
-      protocol: "file:",
-      slashes: true,
-    });
+        pathname: join(__dirname, "../../renderer/out/note.html"),
+        protocol: "file:",
+        slashes: true,
+      });
 
   window.loadURL(url);
   electronIsDev && window.webContents.openDevTools({ mode: "detach" });
@@ -64,7 +67,15 @@ ipcMain.handle("save-note", (_e, _args) => {
 ipcMain.handle("delete-note", (_e, _args) => {
   return deleteNote(_args.id);
 });
-
+ipcMain.handle("auto-height", (_e, args) => {
+  console.log("====================================");
+  console.log("args", args);
+  console.log("====================================");
+  if (window) {
+    window.setSize(400, args, true);
+    window.show();
+  }
+});
 export default windowManager.setNoteWindow({
   openNoteWindow: createBrowserWindow,
   closeNoteWindow: close,

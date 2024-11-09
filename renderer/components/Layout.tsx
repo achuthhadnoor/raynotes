@@ -24,7 +24,7 @@ const Layout = ({ children, title = "This s" }: Props) => {
   }, []);
   return (
     <div>
-      <header className="flex justify-between px-2 items-center py-1 dragable">
+      {/* <header className="flex justify-between px-2 items-center py-1 dragable">
         <div className="flex flex-row ">
           <div className="relative flex gap-2 left-[5px] opacity-[0.3] transition ease-in-out text-neutral-700 dark:text-neutral-300">
             <svg
@@ -45,7 +45,7 @@ const Layout = ({ children, title = "This s" }: Props) => {
           <div className="p-1">+</div>
           <div className="p-1">🧷</div>
         </div>
-      </header>
+      </header> */}
       {/* <nav>
         <Link href="/">Home</Link> | <Link href="/about">About</Link> |{" "}
         <Link href="/initial-props">With Initial Props</Link>
