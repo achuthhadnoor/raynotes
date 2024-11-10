@@ -4,11 +4,13 @@ import { app } from "electron";
 import prepareNext from "electron-next";
 import "./windows/load";
 import windowManager from "./windows/windowManager";
+import createTray from "./tray";
 
 // Prepare the renderer once the app is ready
 app.on("ready", async () => {
   await prepareNext("./renderer");
   windowManager.noteWindow?.openNoteWindow("101");
+  createTray();
 });
 
 // Quit the app once all windows are closed

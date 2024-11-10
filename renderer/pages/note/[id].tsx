@@ -6,6 +6,9 @@ import { findAll, findData } from "../../utils/sample-api";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Editor from "../../components/Editor";
 import { createRef, useEffect } from "react";
+import { TbNotes } from "react-icons/tb";
+import { GoPlus } from "react-icons/go";
+import { MdKeyboardCommandKey } from "react-icons/md";
 
 type Params = {
   id?: string;
@@ -74,15 +77,17 @@ const Note = ({ item, errors }: Props) => {
           <div className=" transition ease-in-out text-neutral-600/80 text-sm">
             untitled
           </div>
-          <div className="flex gap-2">
-            <span className="p-1">⌘</span>
-            <span className="p-1">+</span>
+          <div className="flex gap-2 items-center">
+            <span className="p-1"><MdKeyboardCommandKey /></span>
+            <span className="p-1"><TbNotes /></span>
+            <span className="p-1"><GoPlus /></span>
           </div>
         </header>
-        <div contentEditable className="text-sm outline-none p-4 accent-green-600 caret-green-600 selection:bg-green-600/20">
+        {/* <div contentEditable className="text-sm outline-none p-4 accent-green-600 caret-green-600 selection:bg-green-600/20">
           Start Typing...
-        </div>
-        <div className="text-center text-sm  opacity-[0.3] group-hover:opacity-[1] transition ease-in-out text-neutral-600">12 characters</div>
+        </div> */}
+        <Editor />
+        <div className="text-center text-sm  opacity-[0.3] group-hover:hover:opacity-[1] transition ease-in-out text-neutral-600 px-2 py-1">12 characters</div>
       </div>
     </Layout>
   );

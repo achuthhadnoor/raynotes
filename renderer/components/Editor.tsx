@@ -70,16 +70,16 @@ const MenuBar = () => {
           editor.isActive("heading", { level: 1 })
             ? "1"
             : editor.isActive("heading", { level: 2 })
-            ? "2"
-            : editor.isActive("heading", { level: 3 })
-            ? "3"
-            : editor.isActive("heading", { level: 4 })
-            ? "4"
-            : editor.isActive("heading", { level: 5 })
-            ? "5"
-            : editor.isActive("heading", { level: 6 })
-            ? "6"
-            : ""
+              ? "2"
+              : editor.isActive("heading", { level: 3 })
+                ? "3"
+                : editor.isActive("heading", { level: 4 })
+                  ? "4"
+                  : editor.isActive("heading", { level: 5 })
+                    ? "5"
+                    : editor.isActive("heading", { level: 6 })
+                      ? "6"
+                      : ""
         }
         className="border-none bg-transparent"
       >
@@ -148,7 +148,7 @@ const extensions = [
   StarterKit.configure({
     paragraph: {
       HTMLAttributes: {
-        class: "m-4 p-4 border border-gray-300 rounded",
+        class: " p-4",
       },
     },
     bulletList: {
