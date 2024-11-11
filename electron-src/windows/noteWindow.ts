@@ -35,14 +35,15 @@ const createBrowserWindow = (id: string | number) => {
   const url = electronIsDev
     ? `http://localhost:8000/note/${id}`
     : format({
-        pathname: join(__dirname, "../../renderer/out/note.html"),
-        protocol: "file:",
-        slashes: true,
-      });
+      pathname: join(__dirname, "../../renderer/out/note.html"),
+      protocol: "file:",
+      slashes: true,
+    });
 
   window.loadURL(url);
   electronIsDev && window.webContents.openDevTools({ mode: "detach" });
-  // window.setContentProtection(true);
+  window.setContentProtection(true);
+  window.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
   isOpen = true;
 };
 
