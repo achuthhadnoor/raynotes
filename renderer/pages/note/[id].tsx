@@ -24,7 +24,7 @@ const Note = ({ item, errors }: Props) => {
 
   if (errors) {
     return (
-      <Layout title={`Error | Next.js + TypeScript + Electron Example`}>
+      <Layout title={""}>
         <p>
           <span style={{ color: "red" }}>Error:</span> {errors}
         </p>
@@ -36,9 +36,9 @@ const Note = ({ item, errors }: Props) => {
     const handleResize = () => {
       if (wrapperRef.current) {
         const { height } = wrapperRef.current.getBoundingClientRect();
-        console.log('====================================');
+        console.log("====================================");
         console.log(height);
-        console.log('====================================');
+        console.log("====================================");
         window.electron.ipcRenderer.invoke("auto-height", height);
       }
     };
@@ -54,7 +54,6 @@ const Note = ({ item, errors }: Props) => {
       }
     };
   }, [wrapperRef]);
-
 
   return (
     <Layout>
@@ -78,16 +77,24 @@ const Note = ({ item, errors }: Props) => {
             untitled
           </div>
           <div className="flex gap-2 items-center">
-            <span className="p-1"><MdKeyboardCommandKey /></span>
-            <span className="p-1"><TbNotes /></span>
-            <span className="p-1"><GoPlus /></span>
+            <span className="p-1">
+              <MdKeyboardCommandKey />
+            </span>
+            <span className="p-1">
+              <TbNotes />
+            </span>
+            <span className="p-1">
+              <GoPlus />
+            </span>
           </div>
         </header>
         {/* <div contentEditable className="text-sm outline-none p-4 accent-green-600 caret-green-600 selection:bg-green-600/20">
           Start Typing...
         </div> */}
         <Editor />
-        <div className="text-center text-sm  opacity-[0.3] group-hover:hover:opacity-[1] transition ease-in-out text-neutral-600 px-2 py-1">12 characters</div>
+        <div className="text-center text-sm  opacity-[0.3] group-hover:hover:opacity-[1] transition ease-in-out text-neutral-600 px-2 py-1">
+          12 characters
+        </div>
       </div>
     </Layout>
   );

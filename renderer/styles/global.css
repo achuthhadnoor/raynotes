@@ -48,6 +48,11 @@
 ::-webkit-scrollbar-corner {
   background-color: transparent;
 }
+
+*{
+  transition: color .025s linear;
+}
+
 html {
   @apply accent-[#4aca4a];
 }
@@ -77,6 +82,11 @@ html {
   @apply list-decimal list-inside mb-4;
 }
 
+.editor-content ul[data-type = 'taskList'] div { @apply inline pl-1; }
+/* .editor-content ul[data-type = 'taskList'] { @apply left } */
+.editor-content ul[data-type = 'taskList'] {
+  @apply list-none list-inside mb-4;
+}
 .editor-content li {
   @apply  mb-1 marker:text-green-500 pl-2 list-inside;
 }
@@ -98,5 +108,5 @@ html {
   @apply my-4 border-t-2 border-green-800 text-sm;
 }
 .editor-content blockquote {
-  @apply border-l-4 border-green-600 pl-2  m-1;
+  @apply border-l-2 border-green-600 pl-2  m-1;
 }

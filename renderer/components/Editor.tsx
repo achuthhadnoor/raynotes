@@ -1,7 +1,6 @@
 import React from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { Editor } from "@tiptap/core";
 
 import {
   GoBold,
@@ -17,6 +16,8 @@ import {
 import { TbBlockquote } from "react-icons/tb";
 import { MdOutlineFormatUnderlined, MdList } from "react-icons/md";
 import { PiCodeBlockBold } from "react-icons/pi";
+import TaskItem from "@tiptap/extension-task-item";
+import TaskList from "@tiptap/extension-task-list";
 
 const MenuBar = ({ editor }) => {
   if (!editor) {
@@ -141,7 +142,7 @@ const MenuBar = ({ editor }) => {
 
 const CustomTipTapEditor = () => {
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [StarterKit, TaskItem, TaskList],
     content: `
       <h1>Hi there,</h1>
       <p>This is a <em>basic</em> example of <strong>TipTap</strong>. Sure, there are all kinds of basic text styles you’d probably expect from a text editor. But wait until you see the lists:</p>
