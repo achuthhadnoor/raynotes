@@ -13,8 +13,8 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
-*{
-  transition: color .025s linear;
+* {
+  transition: color 0.025s linear;
 }
 .dragable {
   -webkit-app-region: drag;
@@ -49,8 +49,8 @@
   background-color: transparent;
 }
 
-*{
-  transition: color .025s linear;
+* {
+  transition: color 0.025s linear;
 }
 
 html {
@@ -68,38 +68,58 @@ html {
   @apply p-1 caret-green-600;
 }
 .editor-content h1 {
-  @apply text-2xl font-bold mb-4;
+  @apply text-2xl font-bold my-2;
+}
+.editor-content h2 {
+  @apply text-xl font-bold my-2;
+}
+.editor-content h3 {
+  @apply text-lg font-bold my-2;
 }
 
 .editor-content p {
-  @apply mb-2;
+  @apply my-2;
 }
 
 .editor-content ul {
-  @apply list-disc list-inside mb-4;
+  @apply list-disc list-inside my-2;
 }
 .editor-content ol {
-  @apply list-decimal list-inside mb-4;
+  @apply list-decimal list-inside my-2;
 }
 
-.editor-content ul[data-type = 'taskList'] div { @apply inline pl-1; }
+.editor-content ul[data-type="taskList"] div {
+  @apply inline pl-1;
+}
 /* .editor-content ul[data-type = 'taskList'] { @apply left } */
-.editor-content ul[data-type = 'taskList'] {
-  @apply list-none list-inside mb-4;
+.editor-content ul[data-type="taskList"] {
+  @apply list-none list-inside my-2;
 }
 .editor-content li {
-  @apply  mb-1 marker:text-green-500 pl-2 list-inside;
+  @apply  items-center gap-1  marker:text-green-500 pl-1 list-inside;
+}
+.editor-content ul[data-type="taskList"] li {
+  @apply flex items-center gap-1  marker:text-green-500 pl-1 list-inside;
 }
 /* Ensures any <p> inside <li> renders inline */
+.editor-content li div {
+  @apply p-0;
+}
+.editor-content li label span {
+  @apply  p-0;
+}
 .editor-content li p {
-  @apply inline m-0 p-0 ;
+  @apply inline m-0 p-1 ;
+}
+.editor-content li input[type="checkbox"] {
+  @apply  align-middle;
 }
 
 .editor-content pre {
-  @apply bg-neutral-700 p-2 rounded-lg my-2 text-xs;
+  @apply bg-neutral-700 p-2 rounded my-4 text-xs;
 }
 .editor-content code {
-  @apply bg-neutral-700 p-1 rounded-lg ;
+  @apply bg-neutral-700 p-1 rounded;
 }
 .editor-content hr {
   @apply my-4 border-t-2 border-neutral-700;
@@ -108,5 +128,5 @@ html {
   @apply my-4 border-t-2 border-green-800 text-sm;
 }
 .editor-content blockquote {
-  @apply border-l-2 border-green-600 pl-2  m-1;
+  @apply border-l-2 border-green-600 pl-3  my-2;
 }
